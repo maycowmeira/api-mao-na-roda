@@ -1,0 +1,2 @@
+class TipoMarcacao < ApplicationRecord
+end
