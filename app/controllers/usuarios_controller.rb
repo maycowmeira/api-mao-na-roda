@@ -4,13 +4,21 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   def index
     @usuarios = Usuario.all
-
-    render json: @usuarios
+    
+    if current_user.admin?
+      render json: @usuarios
+    else
+      render json: @usuarios.collect { |u| u.attributes.except('password_digest') }
+    end
   end
 
   # GET /usuarios/1
   def show
-    render json: @usuario
+    if current_user.admin?
+      render json: @usuario
+    else
+      render json: @usuario.attributes.except("password_digest")
+    end
   end
 
   # POST /usuarios
@@ -46,6 +54,7 @@ class UsuariosController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def usuario_params
-      params.require(:usuario).permit(:nome, :email, :password_digest)
+      # params.require(:usuario).permit(:nome, :email, :password_digest, :ano, :profissao, :restricao, :restricao_outras, :genero_id, :perfil_id, :escolaridade_id)
+      params.require(:usuario).permit(:nome, :email, :password, :password_confirmation, :ano, :profissao, :restricao, :restricao_outras, :genero_id, :perfil_id, :escolaridade_id)
     end
 end

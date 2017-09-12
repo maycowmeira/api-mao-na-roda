@@ -4,8 +4,22 @@ one:
   nome: MyString
   email: MyString
   password_digest: MyString
+  ano: 1
+  profissao: MyString
+  restricao: MyString
+  restricao_outras: MyString
+  genero: one
+  perfil: one
+  escolaridade: one
 
 two:
   nome: MyString
   email: MyString
   password_digest: MyString
+  ano: 1
+  profissao: MyString
+  restricao: MyString
+  restricao_outras: MyString
+  genero: two
+  perfil: two
+  escolaridade: two
