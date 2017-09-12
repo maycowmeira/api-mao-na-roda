@@ -43,6 +43,10 @@ GEM
     builder (3.2.3)
     byebug (9.1.0)
     concurrent-ruby (1.0.5)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     erubi (1.6.1)
     ffi (1.9.18)
     globalid (0.4.0)
@@ -63,6 +67,9 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
+    net-ssh (4.2.0)
+    net-ssh-gateway (2.0.0)
+      net-ssh (>= 4.0.0)
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
@@ -126,8 +133,10 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
+  dotenv-rails
   jwt
   listen (>= 3.0.5, < 3.2)
+  net-ssh-gateway
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.3)

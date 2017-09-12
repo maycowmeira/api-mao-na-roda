@@ -21,6 +21,13 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'simple_command'
 
+# SSH gateway
+gem 'net-ssh-gateway'
+
+# ENV 
+gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
