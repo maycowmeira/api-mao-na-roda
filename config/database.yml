@@ -82,5 +82,5 @@ development:
 production:
   <<: *default
   database: workspace_production
-  username: workspace
-  password: <%= ENV['WORKSPACE_DATABASE_PASSWORD'] %>
+  username: <%= ENV["HEROKU_POSTGRES_USER"] %>
+  password: <%= ENV["HEROKU_POSTGRES_PASSWORD"] %>
