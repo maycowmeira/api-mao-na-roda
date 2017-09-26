@@ -1,19 +1,19 @@
-class TipoMarcacaosController < ApplicationController
+class TipoMarcacaoController < ApplicationController
   before_action :set_tipo_marcacao, only: [:show, :update, :destroy]
 
-  # GET /tipo_marcacaos
+  # GET /tipo_marcacao
   def index
     @tipo_marcacaos = TipoMarcacao.all
 
     render json: @tipo_marcacaos
   end
 
-  # GET /tipo_marcacaos/1
+  # GET /tipo_marcacao/1
   def show
     render json: @tipo_marcacao
   end
 
-  # POST /tipo_marcacaos
+  # POST /tipo_marcacao
   def create
     @tipo_marcacao = TipoMarcacao.new(tipo_marcacao_params)
 
@@ -24,7 +24,7 @@ class TipoMarcacaosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tipo_marcacaos/1
+  # PATCH/PUT /tipo_marcacao/1
   def update
     if @tipo_marcacao.update(tipo_marcacao_params)
       render json: @tipo_marcacao
@@ -33,19 +33,19 @@ class TipoMarcacaosController < ApplicationController
     end
   end
 
-  # DELETE /tipo_marcacaos/1
+  # DELETE /tipo_marcacao/1
   def destroy
     @tipo_marcacao.destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_tipo_marcacao
-      @tipo_marcacao = TipoMarcacao.find(params[:id])
-    end
+  def set_tipo_marcacao
+    @tipo_marcacao = TipoMarcacao.find(params[:id])
+  end
 
     # Only allow a trusted parameter "white list" through.
-    def tipo_marcacao_params
-      params.require(:tipo_marcacao).permit(:descricao)
-    end
+  def tipo_marcacao_params
+	  params.require(:tipo_marcacao).permit(:descricao)
+  end
 end

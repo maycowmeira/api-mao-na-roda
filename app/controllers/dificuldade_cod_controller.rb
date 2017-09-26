@@ -1,19 +1,19 @@
-class DificuldadeCodsController < ApplicationController
+class DificuldadeCodController < ApplicationController
   before_action :set_dificuldade_cod, only: [:show, :update, :destroy]
 
-  # GET /dificuldade_cods
+  # GET /dificuldade_cod
   def index
     @dificuldade_cods = DificuldadeCod.all
 
     render json: @dificuldade_cods
   end
 
-  # GET /dificuldade_cods/1
+  # GET /dificuldade_cod/1
   def show
     render json: @dificuldade_cod
   end
 
-  # POST /dificuldade_cods
+  # POST /dificuldade_cod
   def create
     @dificuldade_cod = DificuldadeCod.new(dificuldade_cod_params)
 
@@ -24,7 +24,7 @@ class DificuldadeCodsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /dificuldade_cods/1
+  # PATCH/PUT /dificuldade_cod/1
   def update
     if @dificuldade_cod.update(dificuldade_cod_params)
       render json: @dificuldade_cod
@@ -33,7 +33,7 @@ class DificuldadeCodsController < ApplicationController
     end
   end
 
-  # DELETE /dificuldade_cods/1
+  # DELETE /dificuldade_cod/1
   def destroy
     @dificuldade_cod.destroy
   end

@@ -1,19 +1,19 @@
-class ResultadosController < ApplicationController
+class ResultadoController < ApplicationController
   before_action :set_resultado, only: [:show, :update, :destroy]
 
-  # GET /resultados
+  # GET /resultado
   def index
     @resultados = Resultado.all
 
     render json: @resultados
   end
 
-  # GET /resultados/1
+  # GET /resultado/1
   def show
     render json: @resultado
   end
 
-  # POST /resultados
+  # POST /resultado
   def create
     @resultado = Resultado.new(resultado_params)
 
@@ -24,7 +24,7 @@ class ResultadosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /resultados/1
+  # PATCH/PUT /resultado/1
   def update
     if @resultado.update(resultado_params)
       render json: @resultado
@@ -33,7 +33,7 @@ class ResultadosController < ApplicationController
     end
   end
 
-  # DELETE /resultados/1
+  # DELETE /resultado/1
   def destroy
     @resultado.destroy
   end

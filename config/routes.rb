@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
-  resources :registros
-  resources :problemas
-  resources :tipo_marcacaos
-  resources :solucaos
-  resources :resultados
-  resources :dificuldades
-  resources :dificuldade_cods
-  resources :usuarios
-  resources :escolaridades
-  resources :perfils
-  resources :generos
+  # Resourses for
+  resources :genero
+  resources :perfil
+  resources :escolaridade
   resources :usuario
-  
+  resources :dificuldade
+  resources :dificuldade_cod
+  resources :resultado
+  resources :solucao
+  resources :tipo_marcacao
+  resources :problema
+  resources :registro
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post 'authenticate', to: 'authentication#authenticate'
+
 end

@@ -1,19 +1,19 @@
-class DificuldadesController < ApplicationController
+class DificuldadeController < ApplicationController
   before_action :set_dificuldade, only: [:show, :update, :destroy]
 
-  # GET /dificuldades
+  # GET /dificuldade
   def index
     @dificuldades = Dificuldade.all
 
-    render json: @dificuldades
+    render json: @dificuldades.as_json(include: [{usuario: { except: :password_digest }}, :dificuldade_cod])
   end
 
-  # GET /dificuldades/1
+  # GET /dificuldade/1
   def show
-    render json: @dificuldade
+    render json: @dificuldade.as_json(include: [{usuario: { except: :password_digest }}, :dificuldade_cod])
   end
 
-  # POST /dificuldades
+  # POST /dificuldade
   def create
     @dificuldade = Dificuldade.new(dificuldade_params)
 
@@ -24,7 +24,7 @@ class DificuldadesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /dificuldades/1
+  # PATCH/PUT /dificuldade/1
   def update
     if @dificuldade.update(dificuldade_params)
       render json: @dificuldade
@@ -33,7 +33,7 @@ class DificuldadesController < ApplicationController
     end
   end
 
-  # DELETE /dificuldades/1
+  # DELETE /dificuldade/1
   def destroy
     @dificuldade.destroy
   end
