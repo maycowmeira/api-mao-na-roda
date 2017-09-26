@@ -1,19 +1,19 @@
-class PerfilsController < ApplicationController
+class PerfilController < ApplicationController
   before_action :set_perfil, only: [:show, :update, :destroy]
 
-  # GET /perfils
+  # GET /perfil
   def index
     @perfils = Perfil.all
 
     render json: @perfils
   end
 
-  # GET /perfils/1
+  # GET /perfil/1
   def show
     render json: @perfil
   end
 
-  # POST /perfils
+  # POST /perfil
   def create
     @perfil = Perfil.new(perfil_params)
 
@@ -24,7 +24,7 @@ class PerfilsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /perfils/1
+  # PATCH/PUT /perfil/1
   def update
     if @perfil.update(perfil_params)
       render json: @perfil
@@ -33,7 +33,7 @@ class PerfilsController < ApplicationController
     end
   end
 
-  # DELETE /perfils/1
+  # DELETE /perfil/1
   def destroy
     @perfil.destroy
   end

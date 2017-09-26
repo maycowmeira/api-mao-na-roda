@@ -1,14 +1,14 @@
-class GenerosController < ApplicationController
+class GeneroController < ApplicationController
   before_action :set_genero, only: [:show, :update, :destroy]
 
-  # GET /generos
+  # GET /genero
   def index
     @generos = Genero.all
 
     render json: @generos
   end
 
-  # GET /generos/1
+  # GET /genero/1
   def show
     render json: @genero
   end
@@ -24,7 +24,7 @@ class GenerosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /generos/1
+  # PATCH/PUT /genero/1
   def update
     if @genero.update(genero_params)
       render json: @genero
@@ -33,7 +33,7 @@ class GenerosController < ApplicationController
     end
   end
 
-  # DELETE /generos/1
+  # DELETE /genero/1
   def destroy
     @genero.destroy
   end

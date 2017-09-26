@@ -1,19 +1,19 @@
-class EscolaridadesController < ApplicationController
+class EscolaridadeController < ApplicationController
   before_action :set_escolaridade, only: [:show, :update, :destroy]
 
-  # GET /escolaridades
+  # GET /escolaridade
   def index
     @escolaridades = Escolaridade.all
 
     render json: @escolaridades
   end
 
-  # GET /escolaridades/1
+  # GET /escolaridade/1
   def show
     render json: @escolaridade
   end
 
-  # POST /escolaridades
+  # POST /escolaridade
   def create
     @escolaridade = Escolaridade.new(escolaridade_params)
 
@@ -24,7 +24,7 @@ class EscolaridadesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /escolaridades/1
+  # PATCH/PUT /escolaridade/1
   def update
     if @escolaridade.update(escolaridade_params)
       render json: @escolaridade
@@ -33,7 +33,7 @@ class EscolaridadesController < ApplicationController
     end
   end
 
-  # DELETE /escolaridades/1
+  # DELETE /escolaridade/1
   def destroy
     @escolaridade.destroy
   end

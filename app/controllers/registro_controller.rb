@@ -1,30 +1,30 @@
-class RegistrosController < ApplicationController
+class RegistroController < ApplicationController
   before_action :set_registro, only: [:show, :update, :destroy]
 
-  # GET /registros
+  # GET /registro
   def index
     @registros = Registro.all
 
-    render json: @registros
+    render json: @registros.as_json(include: :problema)
   end
 
-  # GET /registros/1
+  # GET /registro/1
   def show
-    render json: @registro
+    render json: @registro.as_json(include: :problema)
   end
 
-  # POST /registros
+  # POST /registro
   def create
     @registro = Registro.new(registro_params)
 
     if @registro.save
-      render json: @registro, status: :created, location: @registro
+      render json: @registro.as_json(include: :problema), status: :created, location: @registro
     else
       render json: @registro.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /registros/1
+  # PATCH/PUT /registro/1
   def update
     if @registro.update(registro_params)
       render json: @registro
@@ -33,7 +33,7 @@ class RegistrosController < ApplicationController
     end
   end
 
-  # DELETE /registros/1
+  # DELETE /registro/1
   def destroy
     @registro.destroy
   end
