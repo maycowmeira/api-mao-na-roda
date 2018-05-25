@@ -4,6 +4,7 @@ class Problema < ActiveRecord::Base
   belongs_to :usuario
   belongs_to :tipo_marcacao
   has_many :registro
+  has_many :solucao
 
   before_validation :set_data_hora_reporte
 

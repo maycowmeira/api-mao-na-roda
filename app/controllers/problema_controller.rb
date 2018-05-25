@@ -5,7 +5,7 @@ class ProblemaController < ApplicationController
   def index
     @problemas = Problema.all
 
-    render json: @problemas.as_json(include: [{usuario: { except: :password_digest }}, :tipo_marcacao, :registro])
+    render json: @problemas.as_json(include: [{usuario: { except: :password_digest }}, :tipo_marcacao, :registro, :solucao])
   end
 
   # GET /problema/1
