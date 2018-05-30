@@ -1,5 +1,5 @@
 class Problema < ActiveRecord::Base
-  self.table_name = "problema"
+  self.table_name = "cadeirante.problema"
 
   belongs_to :usuario
   belongs_to :tipo_marcacao

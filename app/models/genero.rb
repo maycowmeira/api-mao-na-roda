@@ -1,3 +1,3 @@
 class Genero < ActiveRecord::Base
-    self.table_name = "genero"
+    self.table_name = "cadeirante.genero"
 end

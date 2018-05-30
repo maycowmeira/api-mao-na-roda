@@ -1,5 +1,5 @@
 class Solucao < ActiveRecord::Base
-    self.table_name = "solucao"
+    self.table_name = "cadeirante.solucao"
 
     belongs_to :usuario
     belongs_to :resultado
