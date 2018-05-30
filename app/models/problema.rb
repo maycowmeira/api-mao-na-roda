@@ -4,15 +4,13 @@ class Problema < ActiveRecord::Base
   belongs_to :usuario
   belongs_to :tipo_marcacao
   has_many :registro
-  has_many :solucao
+  has_one :solucao
 
-  before_validation :set_data_hora_reporte
+  before_create :set_data_hora_reporte
 
   private
 
   def set_data_hora_reporte
-      self.data_hora_reporte = Time.zone.now
+    self.data_hora_reporte = Time.zone.now
   end
 end
-
-
