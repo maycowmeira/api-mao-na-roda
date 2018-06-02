@@ -7,12 +7,15 @@ Rails.application.routes.draw do
   resources :dificuldade
   resources :dificuldade_cod
   resources :resultado
-  resources :solucao
+  resources :solucao do
+    get 'frequencia', on: :collection
+  end
   resources :tipo_marcacao
-  resources :problema
+  resources :problema do
+    get 'frequencia', on: :collection
+  end
   resources :registro
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post 'authenticate', to: 'authentication#authenticate'
-
 end
