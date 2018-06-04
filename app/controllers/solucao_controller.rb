@@ -1,6 +1,5 @@
 class SolucaoController < ApplicationController
   before_action :set_solucao, only: [:show, :update, :destroy]
-  before_action :fetch_frequencia, only: :frequencia
 
   # GET /solucao
   def index
@@ -54,6 +53,12 @@ class SolucaoController < ApplicationController
   end
 
   def frequencia
+    @frequencia = Frequencia.new(
+      frequencia_params[:freq_mes_start],
+      frequencia_params[:freq_mes_end],
+      frequencia_params[:freq_ano_start],
+      frequencia_params[:freq_ano_end],
+      Solucao).frequencia
     render json: @frequencia
   end
 
@@ -72,27 +77,5 @@ class SolucaoController < ApplicationController
 
   def frequencia_params
     params.permit(:freq_mes_start, :freq_mes_end, :freq_ano_start, :freq_ano_end)
-  end
-
-  def fetch_frequencia
-    begin
-      if frequencia_params[:freq_ano_start].nil? || frequencia_params[:freq_mes_start].nil?
-        start_period = DateTime.parse('19710101')
-      else
-        start_period = DateTime.parse("#{frequencia_params[:freq_ano_start]}#{frequencia_params[:freq_mes_start]}01").utc
-      end
-      if frequencia_params[:freq_ano_end].nil? || frequencia_params[:freq_mes_end].nil?
-        end_period = Time.zone.now.end_of_month
-      else
-        end_period = DateTime.parse("#{frequencia_params[:freq_ano_end]}#{frequencia_params[:freq_mes_end]}01").utc.end_of_month
-      end
-      @frequencia = Solucao.where('data_hora >= ? AND data_hora <= ?', start_period, end_period)
-                           .group('(EXTRACT(YEAR FROM data_hora))::integer')
-                           .group('(EXTRACT(MONTH FROM data_hora))::integer')
-                           .order('2 DESC, 3 DESC')
-                           .count
-    rescue
-      @frequencia = {error: "Periodo nao disponibilizado"}
-    end
   end
 end

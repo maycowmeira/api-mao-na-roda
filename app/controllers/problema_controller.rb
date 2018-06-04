@@ -1,7 +1,6 @@
 class ProblemaController < ApplicationController
   before_action :set_problema, only: [:show, :update, :destroy]
   before_action :fetch_problemas, only: :index
-  before_action :fetch_frequencia, only: :frequencia
 
   # GET /problema
   def index
@@ -40,6 +39,12 @@ class ProblemaController < ApplicationController
 
   # endpoint pra contar o numero de problema de um determinado mes
   def frequencia
+    @frequencia = Frequencia.new(
+      frequencia_params[:freq_mes_start],
+      frequencia_params[:freq_mes_end],
+      frequencia_params[:freq_ano_start],
+      frequencia_params[:freq_ano_end],
+      Problema).frequencia
     render json: @frequencia
   end
 
@@ -61,29 +66,6 @@ class ProblemaController < ApplicationController
 
   def frequencia_params
     params.permit(:freq_mes_start, :freq_mes_end, :freq_ano_start, :freq_ano_end)
-  end
-
-  def fetch_frequencia
-    begin
-      if frequencia_params[:freq_ano_start].nil? || frequencia_params[:freq_mes_start].nil?
-        start_period = DateTime.parse('19710101')
-      else
-        start_period = DateTime.parse("#{frequencia_params[:freq_ano_start]}#{frequencia_params[:freq_mes_start]}01").utc
-      end
-      if frequencia_params[:freq_ano_end].nil? || frequencia_params[:freq_mes_end].nil?
-        end_period = Time.zone.now.end_of_month
-      else
-        end_period = DateTime.parse("#{frequencia_params[:freq_ano_end]}#{frequencia_params[:freq_mes_end]}01").utc.end_of_month
-      end
-      @frequencia = Problema.where('data_hora_reporte >= ? AND data_hora_reporte <= ?', start_period, end_period)
-                           .group('(EXTRACT(YEAR FROM data_hora_reporte))::integer')
-                           .group('(EXTRACT(MONTH FROM data_hora_reporte))::integer')
-                           .order('2 DESC, 3 DESC')
-                           .count
-
-    rescue
-      @frequencia = {error: "Periodo nao disponibilizado"}
-    end
   end
 
   def fetch_problemas
