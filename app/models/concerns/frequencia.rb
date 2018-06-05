@@ -1,8 +1,9 @@
 class Frequencia
   attr_accessor :start_period, :end_period, :type
 
-  def initialize(mes_start, mes_end, ano_start, ano_end, type)
-    define_periods(mes_start, mes_end, ano_start, ano_end)
+  def initialize(freq_start, freq_end, type)
+    define_periods(freq_start, freq_end)
+    raise ArgumentError, 'Data inicial maior que a final!' unless start_period < end_period
     self.type = type
   end
 
@@ -36,16 +37,17 @@ class Frequencia
     mapped_frequencies << {ano: last_year, mes: last_month, valor: frequencias[[last_year, last_month]] || 0}
   end
 
-  def define_periods(mes_start, mes_end, ano_start, ano_end)
-    if ano_start.nil? || mes_start.nil?
+  def define_periods(freq_start, freq_end)
+    if freq_start.nil?
       self.start_period = DateTime.parse(Problema.minimum(:data_hora_reporte).to_s) || DateTime.parse('19710101')
     else
-      self.start_period = DateTime.new(ano_start.to_i, mes_start.to_i, 1).utc
+      self.start_period = DateTime.parse(freq_start).utc.beginning_of_month rescue DateTime.parse(Problema.minimum(:data_hora_reporte).to_s) || DateTime.parse('19710101')
     end
-    if ano_end.nil? || mes_end.nil?
-      self.end_period = Time.zone.now.end_of_month
+
+    if freq_end.nil?
+    	self.end_period = Time.zone.now.end_of_month
     else
-      self.end_period = DateTime.new(ano_end.to_i, mes_end.to_i, 1).utc.end_of_month
+      self.end_period = DateTime.parse(freq_end).utc.end_of_month rescue Time.zone.now.end_of_month
     end
   end
 

@@ -53,13 +53,15 @@ class SolucaoController < ApplicationController
   end
 
   def frequencia
-    @frequencia = Frequencia.new(
-      frequencia_params[:freq_mes_start],
-      frequencia_params[:freq_mes_end],
-      frequencia_params[:freq_ano_start],
-      frequencia_params[:freq_ano_end],
-      Solucao).frequencia
-    render json: @frequencia
+    begin
+      @frequencia = Frequencia.new(
+        frequencia_params[:freq_start],
+        frequencia_params[:freq_end],
+        Solucao).frequencia
+      render json: @frequencia
+    rescue ArgumentError
+      render nothing: true, status: :bad_request
+    end
   end
 
   private
@@ -72,10 +74,11 @@ class SolucaoController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def solucao_params
     params.require(:solucao).permit(:descricao, :usuario_id, :resultado_id,
-      :problema_id)
+      :problema_id, :solucao)
   end
 
   def frequencia_params
-    params.permit(:freq_mes_start, :freq_mes_end, :freq_ano_start, :freq_ano_end)
+    # params.permit(:freq_mes_start, :freq_mes_end, :freq_ano_start, :freq_ano_end)
+    params.permit(:freq_start, :freq_end)
   end
 end

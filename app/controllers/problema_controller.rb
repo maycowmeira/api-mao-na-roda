@@ -39,13 +39,15 @@ class ProblemaController < ApplicationController
 
   # endpoint pra contar o numero de problema de um determinado mes
   def frequencia
-    @frequencia = Frequencia.new(
-      frequencia_params[:freq_mes_start],
-      frequencia_params[:freq_mes_end],
-      frequencia_params[:freq_ano_start],
-      frequencia_params[:freq_ano_end],
-      Problema).frequencia
-    render json: @frequencia
+    begin
+      @frequencia = Frequencia.new(
+        frequencia_params[:freq_start],
+        frequencia_params[:freq_end],
+        Problema).frequencia
+      render json: @frequencia
+    rescue ArgumentError
+      render nothing: true, status: :bad_request
+    end
   end
 
   private
@@ -56,16 +58,13 @@ class ProblemaController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def problema_params
-    # params.require(:problema).permit(:lat_inicio, :long_inicio, :lat_final,
-    # 	:long_final, :descricao, :usuario_id, :tipo_marcacao_id,
-    # 	:prob_start, :prob_end, :sol_start, :sol_end)
   	params.permit(:lat_inicio, :long_inicio, :lat_final,
   	  :long_final, :descricao, :usuario_id, :tipo_marcacao_id,
     	:prob_start, :prob_end, :sol_start, :sol_end, :problema)
   end
 
   def frequencia_params
-    params.permit(:freq_mes_start, :freq_mes_end, :freq_ano_start, :freq_ano_end)
+    params.permit(:freq_start, :freq_end)
   end
 
   def fetch_problemas
