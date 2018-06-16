@@ -1,8 +1,7 @@
 class UsuarioController < ApplicationController
-
   skip_before_action :authenticate_request, only: [:create]
 
-  before_action :set_usuario, only: [:show, :update, :destroy]
+  before_action :set_usuario, only: %i[show update destroy]
 
   # GET /usuario
   def index
@@ -29,7 +28,7 @@ class UsuarioController < ApplicationController
     @usuario = Usuario.new(usuario_params)
 
     if @usuario.save
-      if current_user.admin?
+      if begin current_user.admin? rescue false end
         render json: @usuario.as_json(include: [:escolaridade, :perfil, :genero, :dificuldade]), status: :created, location: @usuario
       else
         render json: @usuario.as_json(include: [:escolaridade, :perfil, :genero, :dificuldade], except:[:password_digest]), status: :created, location: @usuario

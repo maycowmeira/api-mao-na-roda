@@ -1,15 +1,21 @@
 class ProblemaController < ApplicationController
-  before_action :set_problema, only: [:show, :update, :destroy]
+  before_action :set_problema, only: %i[show update destroy]
   before_action :fetch_problemas, only: :index
 
   # GET /problema
   def index
-    render json: @problemas.as_json(include: [{usuario: { except: :password_digest }}, :tipo_marcacao, :registro, :solucao])
+    render json: @problemas.as_json(
+      include: [
+        { usuario: { except: :password_digest } },
+        :tipo_marcacao,
+        :registro, :solucao
+      ]
+    )
   end
 
   # GET /problema/1
   def show
-    render json: @problema.as_json(include: [{usuario: { except: :password_digest }}, :tipo_marcacao, :registro])
+    render json: @problema.as_json(include: [ {usuario: { except: :password_digest } }, :tipo_marcacao, :registro])
   end
 
   # POST /problema
@@ -17,7 +23,13 @@ class ProblemaController < ApplicationController
     @problema = Problema.new(problema_params)
 
     if @problema.save
-      render json: @problema.as_json(include: [{usuario: { except: :password_digest }}, :tipo_marcacao, :registro]), status: :created, location: @problema
+      render json: @problema.as_json(
+        include: [
+          { usuario: { except: :password_digest } },
+          :tipo_marcacao,
+          :registro
+        ]
+      ), status: :created, location: @problema
     else
       render json: @problema.errors, status: :unprocessable_entity
     end
@@ -43,7 +55,8 @@ class ProblemaController < ApplicationController
       @frequencia = Frequencia.new(
         frequencia_params[:freq_start],
         frequencia_params[:freq_end],
-        Problema).frequencia
+        Problema
+      ).frequencia
       render json: @frequencia
     rescue ArgumentError
       render nothing: true, status: :bad_request
@@ -58,9 +71,8 @@ class ProblemaController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def problema_params
-  	params.permit(:lat_inicio, :long_inicio, :lat_final,
-  	  :long_final, :descricao, :usuario_id, :tipo_marcacao_id,
-    	:prob_start, :prob_end, :sol_start, :sol_end, :problema)
+  	params.permit(:lat_inicio, :long_inicio, :lat_final, :long_final, :descricao, :usuario_id, :tipo_marcacao_id,
+                  :prob_start, :prob_end, :sol_start, :sol_end, :problema)
   end
 
   def frequencia_params

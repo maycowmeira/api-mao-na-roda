@@ -73,12 +73,10 @@ class SolucaoController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def solucao_params
-    params.require(:solucao).permit(:descricao, :usuario_id, :resultado_id,
-      :problema_id, :solucao)
+    params.require(:solucao).permit(:descricao, :usuario_id, :resultado_id, :problema_id, :solucao)
   end
 
   def frequencia_params
-    # params.permit(:freq_mes_start, :freq_mes_end, :freq_ano_start, :freq_ano_end)
     params.permit(:freq_start, :freq_end)
   end
 end
