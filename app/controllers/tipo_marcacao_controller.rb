@@ -1,5 +1,5 @@
 class TipoMarcacaoController < ApplicationController
-  before_action :set_tipo_marcacao, only: [:show, :update, :destroy]
+  before_action :set_tipo_marcacao, only: %i[show update destroy]
 
   # GET /tipo_marcacao
   def index
@@ -39,13 +39,12 @@ class TipoMarcacaoController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
   def set_tipo_marcacao
     @tipo_marcacao = TipoMarcacao.find(params[:id])
   end
 
-    # Only allow a trusted parameter "white list" through.
   def tipo_marcacao_params
-	  params.require(:tipo_marcacao).permit(:descricao)
+    params.require(:tipo_marcacao).permit(:descricao)
   end
 end

@@ -1,5 +1,5 @@
 class ResultadoController < ApplicationController
-  before_action :set_resultado, only: [:show, :update, :destroy]
+  before_action :set_resultado, only: %i[show update destroy]
 
   # GET /resultado
   def index
@@ -39,13 +39,12 @@ class ResultadoController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_resultado
-      @resultado = Resultado.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def resultado_params
-      params.require(:resultado).permit(:descricao)
-    end
+  def set_resultado
+    @resultado = Resultado.find(params[:id])
+  end
+
+  def resultado_params
+    params.require(:resultado).permit(:descricao)
+  end
 end

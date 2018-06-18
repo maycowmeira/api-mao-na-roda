@@ -1,24 +1,16 @@
 class SolucaoController < ApplicationController
-  before_action :set_solucao, only: [:show, :update, :destroy]
+  before_action :set_solucao, only: %i[show update destroy]
 
   # GET /solucao
   def index
     @solucaos = Solucao.all
 
-    render json: @solucaos.as_json(include: [
-        {usuario: { except: :password_digest }},
-        :resultado,
-        :problema
-      ])
+    render json: @solucaos.as_json(include: [{ usuario: { except: :password_digest } }, :resultado, :problema])
   end
 
   # GET /solucao/1
   def show
-    render json: @solucao.as_json(include: [
-        {usuario: { except: :password_digest }},
-        :resultado,
-        :problema
-      ])
+    render json: @solucao.as_json(include: [{ usuario: { except: :password_digest } }, :resultado, :problema])
   end
 
   # POST /solucao
@@ -27,12 +19,8 @@ class SolucaoController < ApplicationController
 
     if @solucao.save
       render json: @solucao.as_json(
-        include: [
-            {usuario: { except: :password_digest }},
-            :resultado,
-            :problema
-          ]
-        ), status: :created, location: @solucao
+        include: [{ usuario: { except: :password_digest } }, :resultado, :problema]
+      ), status: :created, location: @solucao
     else
       render json: @solucao.errors, status: :unprocessable_entity
     end
@@ -53,32 +41,27 @@ class SolucaoController < ApplicationController
   end
 
   def frequencia
-    begin
-      @frequencia = Frequencia.new(
-        frequencia_params[:freq_start],
-        frequencia_params[:freq_end],
-        Solucao).frequencia
-      render json: @frequencia
-    rescue ArgumentError
-      render nothing: true, status: :bad_request
-    end
+    @frequencia = Frequencia.new(
+      frequencia_params[:freq_start],
+      frequencia_params[:freq_end],
+      Solucao
+    ).frequencia
+    render json: @frequencia
+  rescue ArgumentError
+    render nothing: true, status: :bad_request
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_solucao
     @solucao = Solucao.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through.
   def solucao_params
-    params.require(:solucao).permit(:descricao, :usuario_id, :resultado_id,
-      :problema_id, :solucao)
+    params.require(:solucao).permit(:descricao, :usuario_id, :resultado_id, :problema_id, :solucao)
   end
 
   def frequencia_params
-    # params.permit(:freq_mes_start, :freq_mes_end, :freq_ano_start, :freq_ano_end)
     params.permit(:freq_start, :freq_end)
   end
 end

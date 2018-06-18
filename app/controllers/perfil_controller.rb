@@ -1,5 +1,5 @@
 class PerfilController < ApplicationController
-  before_action :set_perfil, only: [:show, :update, :destroy]
+  before_action :set_perfil, only: %i[show update destroy]
 
   # GET /perfil
   def index
@@ -39,13 +39,12 @@ class PerfilController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_perfil
-      @perfil = Perfil.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def perfil_params
-      params.require(:perfil).permit(:descricao)
-    end
+  def set_perfil
+    @perfil = Perfil.find(params[:id])
+  end
+
+  def perfil_params
+    params.require(:perfil).permit(:descricao)
+  end
 end

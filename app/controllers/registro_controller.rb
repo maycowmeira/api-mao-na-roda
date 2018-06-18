@@ -1,5 +1,5 @@
 class RegistroController < ApplicationController
-  before_action :set_registro, only: [:show, :update, :destroy]
+  before_action :set_registro, only: %i[show update destroy]
 
   # GET /registro
   def index
@@ -39,13 +39,12 @@ class RegistroController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_registro
-      @registro = Registro.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def registro_params
-      params.require(:registro).permit(:foto_url, :descricao, :problema_id)
-    end
+  def set_registro
+    @registro = Registro.find(params[:id])
+  end
+
+  def registro_params
+    params.require(:registro).permit(:foto_url, :descricao, :problema_id)
+  end
 end

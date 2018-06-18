@@ -1,5 +1,5 @@
 class GeneroController < ApplicationController
-  before_action :set_genero, only: [:show, :update, :destroy]
+  before_action :set_genero, only: %i[show update destroy]
 
   # GET /genero
   def index
@@ -39,13 +39,12 @@ class GeneroController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_genero
-      @genero = Genero.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def genero_params
-      params.require(:genero).permit(:descricao)
-    end
+  def set_genero
+    @genero = Genero.find(params[:id])
+  end
+
+  def genero_params
+    params.require(:genero).permit(:descricao)
+  end
 end

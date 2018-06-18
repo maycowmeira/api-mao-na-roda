@@ -1,5 +1,5 @@
 class EscolaridadeController < ApplicationController
-  before_action :set_escolaridade, only: [:show, :update, :destroy]
+  before_action :set_escolaridade, only: %i[show update destroy]
 
   # GET /escolaridade
   def index
@@ -39,13 +39,12 @@ class EscolaridadeController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_escolaridade
-      @escolaridade = Escolaridade.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def escolaridade_params
-      params.require(:escolaridade).permit(:descricao)
-    end
+  def set_escolaridade
+    @escolaridade = Escolaridade.find(params[:id])
+  end
+
+  def escolaridade_params
+    params.require(:escolaridade).permit(:descricao)
+  end
 end

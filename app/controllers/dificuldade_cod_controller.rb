@@ -1,5 +1,5 @@
 class DificuldadeCodController < ApplicationController
-  before_action :set_dificuldade_cod, only: [:show, :update, :destroy]
+  before_action :set_dificuldade_cod, only: %i[show update destroy]
 
   # GET /dificuldade_cod
   def index
@@ -39,13 +39,13 @@ class DificuldadeCodController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dificuldade_cod
-      @dificuldade_cod = DificuldadeCod.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def dificuldade_cod_params
-      params.require(:dificuldade_cod).permit(:nome)
-    end
+  def set_dificuldade_cod
+    @dificuldade_cod = DificuldadeCod.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def dificuldade_cod_params
+    params.require(:dificuldade_cod).permit(:nome)
+  end
 end
