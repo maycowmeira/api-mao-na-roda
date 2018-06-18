@@ -6,28 +6,28 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Genero.create(descricao: 'masculino')
-# Genero.create(descricao: 'feminino')
+Genero.create(descricao: 'masculino')
+Genero.create(descricao: 'feminino')
 
-# Perfil.create(descricao: 'admin')
-# Perfil.create(descricao: 'android')
-# Perfil.create(descricao: 'prefeitura')
+Perfil.create(descricao: 'admin')
+Perfil.create(descricao: 'android')
+Perfil.create(descricao: 'prefeitura')
 
-# Escolaridade.create(descricao: 'Fundamental incompleto')
-# Escolaridade.create(descricao: 'Fundamental completo')
-# Escolaridade.create(descricao: 'Medio incompleto')
-# Escolaridade.create(descricao: 'Medio completo')
-# Escolaridade.create(descricao: 'Superior incompleto')
-# Escolaridade.create(descricao: 'Superior completo')
+Escolaridade.create(descricao: 'Fundamental incompleto')
+Escolaridade.create(descricao: 'Fundamental completo')
+Escolaridade.create(descricao: 'Medio incompleto')
+Escolaridade.create(descricao: 'Medio completo')
+Escolaridade.create(descricao: 'Superior incompleto')
+Escolaridade.create(descricao: 'Superior completo')
 
-# Usuario.create(perfil_id: 1, escolaridade_id: 6, genero_id: 1, nome: 'Admin', email: 'admin@email.com', password: '123123', password_confirmation: '123123', profissao: 'Administrador', ano: 1990)
-# Usuario.create(perfil_id: 2, escolaridade_id: 5, genero_id: 2, nome: 'Guria', email: 'guria@email.com', password: '123123', password_confirmation: '123123', profissao: 'Android', ano: 1995)
-# Usuario.create(perfil_id: 3, escolaridade_id: 4, genero_id: 1, nome: 'Pia',   email: 'pia@email.com',   password: '123123', password_confirmation: '123123', profissao: 'Prefeitura', ano: 1998)
+Usuario.create(perfil_id: 1, escolaridade_id: 6, genero_id: 1, nome: 'Admin', email: 'admin@email.com', password: '123123', password_confirmation: '123123', profissao: 'Administrador', ano: 1990)
+Usuario.create(perfil_id: 2, escolaridade_id: 5, genero_id: 2, nome: 'Guria', email: 'guria@email.com', password: '123123', password_confirmation: '123123', profissao: 'Android', ano: 1995)
+Usuario.create(perfil_id: 3, escolaridade_id: 4, genero_id: 1, nome: 'Pia',   email: 'pia@email.com',   password: '123123', password_confirmation: '123123', profissao: 'Prefeitura', ano: 1998)
 
-# Dificuldade.create(nome: 'nenhuma')
+Dificuldade.create(nome: 'nenhuma')
 
-# TipoMarcacao.create(descricao: 'rampa')
-# TipoMarcacao.create(descricao: 'calcada')
+TipoMarcacao.create(descricao: 'rampa')
+TipoMarcacao.create(descricao: 'calcada')
 
 descricoes_probs = [
   'Rebaixamento com defeito',
@@ -146,7 +146,19 @@ pontos = [
   [-25.444461, -49.280324]
 ]
 
-def cria_problemas(pontos, descricoes_probs)
+def rand_int(from, to)
+  rand_in_range(from, to).to_i
+end
+
+def rand_time(from, to=Time.now)
+  Time.at(rand_in_range(from.to_f, to.to_f))
+end
+
+def rand_in_range(from, to)
+  rand * (to - from) + from
+end
+
+def cria_problemas(pontos, descricoes)
   pontos.each do |ponto|
     params = {
       usuario_id: 2,
@@ -162,37 +174,25 @@ def cria_problemas(pontos, descricoes_probs)
   end
 end
 
-def rand_int(from, to)
-  rand_in_range(from, to).to_i
-end
-
-def rand_time(from, to=Time.now)
-  Time.at(rand_in_range(from.to_f, to.to_f))
-end
-
-def rand_in_range(from, to)
-  rand * (to - from) + from
-end
-
 def cria_solucoes
-	descricoes_solu = [
-		'Calçada concertada',
-		'Rebaixamento concertado',
-		'Obstáculo removido',
-		'Obra finalizada',
-		'Calçada alinhada'
-	]
-	n_problemas = Problema.count
-	problemas_ids = Problema.all.limit(n_problemas/3).map(&:id)
-	problemas_ids.each do |problema_id|
-		solucao = Solucao.create(
-			problema_id: problema_id,
-			resultado_id: 1,
-			usuario_id: rand_int(2,4),
-			descricao: descricoes_solu[rand_int(0, 5)]
-		)
-		solucao.update_attributes(
-			data_hora: rand_time(solucao.problema.data_hora_reporte)
-		)
-	end
+  descricoes_solu = [
+    'Calçada concertada',
+    'Rebaixamento concertado',
+    'Obstáculo removido',
+    'Obra finalizada',
+    'Calçada alinhada'
+  ]
+  n_problemas = Problema.count
+  problemas_ids = Problema.all.limit(n_problemas / 3).map(&:id)
+  problemas_ids.each do |problema_id|
+    solucao = Solucao.create(
+      problema_id: problema_id,
+      resultado_id: 1,
+      usuario_id: rand_int(2, 4),
+      descricao: descricoes_solu[rand_int(0, 5)]
+    )
+    solucao.update_attributes(
+      data_hora: rand_time(solucao.problema.data_hora_reporte)
+    )
+  end
 end

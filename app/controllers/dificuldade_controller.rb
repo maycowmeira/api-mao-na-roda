@@ -1,16 +1,16 @@
 class DificuldadeController < ApplicationController
-  before_action :set_dificuldade, only: [:show, :update, :destroy]
+  before_action :set_dificuldade, only: %i[show update destroy]
 
   # GET /dificuldade
   def index
     @dificuldades = Dificuldade.all
 
-    render json: @dificuldades.as_json(include: [{usuario: { except: :password_digest }}, :dificuldade_cod])
+    render json: @dificuldades.as_json(include: [{ usuario: { except: :password_digest } }, :dificuldade_cod])
   end
 
   # GET /dificuldade/1
   def show
-    render json: @dificuldade.as_json(include: [{usuario: { except: :password_digest }}, :dificuldade_cod])
+    render json: @dificuldade.as_json(include: [{ usuario: { except: :password_digest } }, :dificuldade_cod])
   end
 
   # POST /dificuldade
@@ -39,13 +39,12 @@ class DificuldadeController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dificuldade
-      @dificuldade = Dificuldade.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def dificuldade_params
-      params.require(:dificuldade).permit(:valor, :usuario_id, :dificuldade_cod_id)
-    end
+  def set_dificuldade
+    @dificuldade = Dificuldade.find(params[:id])
+  end
+
+  def dificuldade_params
+    params.require(:dificuldade).permit(:valor, :usuario_id, :dificuldade_cod_id)
+  end
 end

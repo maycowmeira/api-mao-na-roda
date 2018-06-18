@@ -1,3 +1,3 @@
 class Perfil < ActiveRecord::Base
-    self.table_name = "cadeirante.perfil"
+  self.table_name = 'cadeirante.perfil'
 end

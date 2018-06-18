@@ -22,7 +22,7 @@ class Frequencia
     start_month = start_period.month
     last_year = end_period.year
     last_month = end_period.month
-	  mapped_frequencies = []
+    mapped_frequencies = []
 
     while start_year != last_year || start_month != last_month
       mapped_frequencies << {
@@ -45,7 +45,7 @@ class Frequencia
     end
 
     if freq_end.nil?
-    	self.end_period = Time.zone.now.end_of_month
+      self.end_period = Time.zone.now.end_of_month
     else
       self.end_period = DateTime.parse(freq_end).utc.end_of_month rescue Time.zone.now.end_of_month
     end
