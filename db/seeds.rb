@@ -29,6 +29,8 @@ Dificuldade.create(nome: 'nenhuma')
 TipoMarcacao.create(descricao: 'rampa')
 TipoMarcacao.create(descricao: 'calcada')
 
+Resultado.create(descricao: 'finalizado')
+
 descricoes_probs = [
   'Rebaixamento com defeito',
   'Buraco',
@@ -185,14 +187,14 @@ def cria_solucoes
   n_problemas = Problema.count
   problemas_ids = Problema.all.limit(n_problemas / 3).map(&:id)
   problemas_ids.each do |problema_id|
-    solucao = Solucao.create(
+    problema = Problema.find(problema_id)
+    solucao = Solucao.new(
       problema_id: problema_id,
       resultado_id: 1,
       usuario_id: rand_int(2, 4),
-      descricao: descricoes_solu[rand_int(0, 5)]
+      descricao: descricoes_solu[rand_int(0, 5)],
+      data_hora: rand_time(problema.data_hora_reporte)
     )
-    solucao.update_attributes(
-      data_hora: rand_time(solucao.problema.data_hora_reporte)
-    )
+    solucao.save
   end
 end
