@@ -5,7 +5,7 @@ class Solucao < ActiveRecord::Base
   belongs_to :resultado
   belongs_to :problema
 
-  before_validation :set_data_hora
+  # before_validation :set_data_hora
 
   private
 
